@@ -1,46 +1,17 @@
-"""
-Created on Wed Dec 11 17:24:58 2018
-
-@author: tracylee
-"""
-
-# usage: python vcf2fa.py xyz.vcf
-# input: xyz.vcf; SNP vcf file
-# output: xyz.vcf.fa
-# Python3
-# print on reference fa: use bcftools consensus
 
 import sys
+import numpy as np
+from collections import defaultdict
 
 raw_vcf = sys.argv[1]
 
-with open(raw_vcf, 'r') as fh:
-    variant = fh.readlines()
-fh.close()
+var = np.genfromtxt(raw_vcf, dtype='unicode', comments = '##', delimiter='\t')
+#var.shape
+colID=var[0][9:]
 
-variant = [lines.rstrip().split('\t') for lines in variant]
-
-pos = [i for i, s in enumerate(variant) if '#CHROM' in s][0]
-colID = (variant[pos][9:])
-
-# check duplicate IDs
-# len(ist(set(colID)))
-
-var = variant[pos+1:]
-
-ref_allele = [var[x][3] for x in range(len(var))]
-alt_allele = [var[y][4] for y in range(len(var))]
-# site_pos = [var[z][1] for z in range(len(var))]
-# site_pos used for LDhat loc file
-# for multiallelic sites only
+ref_allele = [var[x][3] for x in range(len(var))][1:]
+alt_allele = [var[y][4] for y in range(len(var))][1:]
 alt_allele = [nt.split(',') for nt in alt_allele]
-
-# list storing all alleles
-# sites = [var[m][3:5] for m in range(len(var))]
-# sites = [''.join(sites[n]).replace(',','') for n in range(len(sites))]
-# sites = [list(item) for item in sites]
-
-var = [keep[9:] for keep in var]
 
 ambi = {'AG':'R','GA':'R',
         'CT':'Y','TC':'Y',
@@ -51,34 +22,35 @@ ambi = {'AG':'R','GA':'R',
 
 base = ''
 call_set = []
-for index, call in enumerate(var):
+for index, call in enumerate(var[1:]):
 	tmp = []
-	for allele in call:
-		if '0/0' in allele:
+	for allele in call[9:]:
+	
+		if allele == '0/0':
 			base = ref_allele[index]
-		elif '1/1' in allele:
+		elif allele == '1/1':
 			base = alt_allele[index][0]
-		elif '0/1' in allele:
+		elif allele == '0/1':
 			base = ambi[ref_allele[index]+alt_allele[index][0]]
-		elif './.' in allele:
+		elif allele == './.':
 			base = '-'
-		elif '0/2' in allele:
+		elif allele == '0/2':
 			base = ambi[ref_allele[index]+alt_allele[index][1]]
-		elif '1/2' in allele:
+		elif allele == '1/2':
 			base = ambi[alt_allele[index][0]+alt_allele[index][1]]
-		elif '2/2' in allele:
+		elif allele == '2/2':
 			base = alt_allele[index][1]
-		elif '3/3' in allele:
+		elif allele == '3/3':
 			base = alt_allele[index][2]
-		elif '0/3' in allele:
+		elif allele == '0/3':
 			base = ambi[ref_allele[index]+alt_allele[index][2]]
-		elif '1/3' in allele:
+		elif allele == '1/3':
 			base = ambi[alt_allele[index][0]+alt_allele[index][2]]
-		elif '2/3' in allele:
+		elif allele == '2/3':
 			base = ambi[alt_allele[index][1]+alt_allele[index][2]]
 		tmp.append(base)
 	call_set.append(tmp)
-	
+
 call_set_bysample = map(list, zip(*call_set))
 biallelic_snp = dict(zip(colID, call_set_bysample))
 
@@ -86,4 +58,3 @@ with open('%s.fa' %raw_vcf, 'a') as fh:
 	for key, value in biallelic_snp.items():
 		fh.write('>%s\n%s\n' % (key, ''.join(value).replace(',', '')))
 fh.close()
-
