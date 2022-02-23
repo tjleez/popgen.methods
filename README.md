@@ -20,7 +20,7 @@ cout pairwise differences between isolates from a list of fasta files
 python pairdiv_fa.list.py fa.list output.txt
 ```
 ### get.CDS.sh
-retrieve CDS sequence from full length fasta using [BEDTools](https://github.com/arq5x/bedtools2.).
+retrieve CDS sequence from full length fasta using [BEDTools](https://github.com/arq5x/bedtools2).
 ```
 sh getCDS.sh prefix.list
 ```
