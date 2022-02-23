@@ -8,7 +8,6 @@ print multiple sequence fasta from vcf
 python vcf2fa.py input.vcf
 ```
 creates *input.vcf.fa*
-
 ### pairdiv_vcf.fa.py
 count pairwise differences between isolates from *input.vcf.fa*
 ```
@@ -25,7 +24,11 @@ retrieve CDS sequence from full length fasta using [BEDTools](https://github.com
 sh getCDS.sh prefix.list
 ```
 creates prefix.CDS.fa
-
+### merge.CDS.sh
+create multiple sequence fasta of each gene, for isolates within a lineage with [Seqtk](https://github.com/lh3/seqtk/)
+```
+sh merge.CDS.sh gene.list prefix.list outDir
+```
 ### translate.from.bed.py
 translate from CDS, providing BED file
 ```
