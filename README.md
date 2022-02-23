@@ -41,4 +41,5 @@ sh vs.output.sh
 ```
 
 ## zOTU table
-zero-radius operational taxonomic unit (zOTUs) table analysed in this paper
+Zero-radius operational taxonomic unit (zOTUs) table analysed in this paper
+Reads are available from NCBI at BioProject PRJNA755173
