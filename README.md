@@ -19,6 +19,12 @@ cout pairwise differences between isolates from a list of fasta files
 ```
 python pairdiv_fa.list.py fa.list output.txt
 ```
+### translate.from.bed.py
+translate from CDS, providing BED file
+```
+python translate.from.bed.py CDS.fa input.bed output.fa
+```
+
 
 ## zOTU table
 zero-radius operational taxonomic unit (zOTUs) table analysed in this paper
