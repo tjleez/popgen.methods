@@ -1,4 +1,5 @@
 #!/bin/bash
+
 gene_list=$1  #list of gene ID, one per line
 prefix_list=$2  #list of isolate ID, one per line
 outDir=$3  #output directory
