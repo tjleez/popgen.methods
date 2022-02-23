@@ -31,6 +31,11 @@ translate from CDS, providing BED file
 ```
 python translate.from.bed.py CDS.fa input.bed output.fa
 ```
+### vs.output.sh
+tabulate results from [VariScan](http://www.ub.edu/softevol/variscan/) output
+```
+sh vs.output.sh
+```
 
 ## zOTU table
 zero-radius operational taxonomic unit (zOTUs) table analysed in this paper
