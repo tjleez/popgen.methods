@@ -42,9 +42,8 @@ admix1.sh
 treemix.k29.sh
 
 ### consensus sequence fasta per isolate
-bcfconsensus.sh     #print ambiguous code
-bcfconsensus.v3.sh  #print first allele
-
+bcfconsensus.sh #print ambiguous code
+bcfconsensus.v3.sh #print first allele
 
 ### print multiple sequence fasta from vcf
 ```
