@@ -12,7 +12,7 @@ trimmomatic_TruSeq3_2.v2
 
 ### Read mapping, sort, mark duplicates
 bwa.sh
-samtools.depth
+samtools.depth.sh
 
 ### BCFtools mpileup
 mpileup.sh
@@ -60,7 +60,7 @@ vs.output.sh
 python pairdiv_vcf.fa.py input.vcf.fa output.txt
 ```
 
-### cout pairwise differences between isolates from a list of fasta files
+### count pairwise differences between isolates from a list of fasta files
 ```
 python pairdiv_fa.list.py fa.list output.txt
 ```
@@ -76,8 +76,7 @@ creates prefix.CDS.fa
 sh merge.CDS.sh gene.list prefix.list outDir
 ```
 
-### translate.from.bed.py
-translate from CDS, providing BED file
+### translate from CDS, providing BED file
 ```
 python translate.from.bed.py CDS.fa input.bed output.fa
 ```
